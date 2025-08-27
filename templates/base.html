@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="Fr">
+<head>
+    <meta charset="UTF-8">
+    <title>La boutique de Mk</title>
+</head>
+<body>
+
+<a href="{% url 'index' %}">
+    <h1>La boutique de Mk</h1>
+</a>
+
+{% if user.is_authenticated %}
+    {{ user.username }}
+    <a href="{% url 'logout' %}">Déconnexion</a>
+{% else %}
+    <a href="{% url 'login' %}">Se connecter</a>
+    <a href="{% url 'signup' %}">S'inscrire</a>
+{% endif %}
+
+{% if user.is_authenticated and user.cart %}
+    <p>
+        <a href="{% url 'cart' %}">Voir le panier ({{ user.cart.orders.count }})</a>
+    </p>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
